@@ -1,0 +1,56 @@
+{% extends 'reestr/base.html' %}
+{% block tittle %} Додати запис{% endblock %}
+{% block albums_active %} active{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+
+    <div class="row" >
+        <div class="col -sm-12 col-md-10">
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% include 'reestr/form-template.html' %}
+                        <style type="text/css">
+select {
+    width: 30%;
+    padding: 8px 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #e5e5e5;
+}
+
+#id_subject_doc {
+    width: 450px;
+    height: 30px;
+}
+#id_whence_came {
+    width: 450px;
+    height: 30px;
+}
+#id_number_doc {
+    width: 100px;
+}
+#id_date_doc {
+    width: 100px;
+}
+            </style>
+                    <div class="form-group">
+
+                        <div class="col-xs-6 col-sm-3">
+                                <button type="submit" class="btn btn-success">Додати запис</button>
+                        </div>
+                        <div class="col-xs-6 col-sm-3">
+                                <input type="button" value="Повернутися" class="btn btn-primary" onclick="history.back()">
+                        </div>
+                    </div>
+                    </form>
+                 </div>
+             </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

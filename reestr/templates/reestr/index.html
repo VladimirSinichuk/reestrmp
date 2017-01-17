@@ -1,0 +1,33 @@
+{% extends 'reestr/base.html' %}
+
+{% block body %}
+{% if all_albums %}
+
+        <h3><span style="border-bottom: medium double teal;">Список територіальної громади м.Ірпінь:</span></h3>
+    <ul>
+        {% for album in all_albums %}
+            <style type="text/css">
+  .tdw{
+  width:200px;
+  }
+
+            </style>
+            <table class="table table-hover table table-striped" style="width: 350px;">
+
+            <td style="width: 60px;">
+
+            <a href="/reestr/{{ album.id }}/">{{ album.first_name }} {{ album.middle_name }} {{ album.last_name }} {{ album.date_of_birht }}</a>
+             </td>
+
+            </table>
+        {% endfor %}
+    <p>
+<form action="{% url 'reestr:export_reestr_xls' %}" method="post" style="display: inline;">
+                                {% csrf_token %}
+                                <input type="submit" value="Завантажити в Excel" class="btn btn-success">
+                            </form>
+    </ul>
+    {% else %}
+    <h3>Немає записів територіальної громади м.Ірпінь </h3>
+    {% endif %}
+{% endblock %} 

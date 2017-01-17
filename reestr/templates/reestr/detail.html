@@ -1,0 +1,182 @@
+{% extends 'reestr/base.html' %}
+{% block tittle %} Детальна інформація {% endblock %}
+
+{% block body %}
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'reestr/style.css' %}" />
+
+        <p class="lead"><strong>Детально:</strong></p>
+
+      <table class="table table-hover table table-striped " border="2" width="100%" cellspacing="1">
+           <style>
+           th {
+        text-align: center; /* Выравниваем текст по центру ячейки для тега th */
+       }
+           </style>
+       <tr>
+         <th align="center" > ПІБ </th>
+         <th align="center" >Дата народження </th>
+         <th align="center" >Місце народження </th>
+         <th align="center" >Місце проживання </th>
+         <th align="center" >Вулиця </th>
+         <th align="center" >Будинок </th>
+         <th align="center" >Дата реєстрації </th>
+         <th align="center" >Дія </th>
+       </tr>
+       <tr>
+           <style>
+           td {
+        text-align: center; /* Выравниваем текст по центру ячейки для тега td */
+       }
+           </style>
+        <td>{{ album.first_name }} {{ album.middle_name }} {{ album.last_name }}</td>
+        <td>{{ album.date_of_birht }} </td>
+        <td>{{ album.place_of_birth }} </td>
+        <td>{{ album.address }} </td>
+        <td>{{ album.street }} </td>
+        <td>{{ album.house }} </td>
+        <td>{{ album.date_of_entry }} </td>
+        <td>{{ album.condition }} </td>
+
+      </tr>
+      </table>
+    <br>
+    <h5><p class="text-primary"><strong>Документи заявника та звідки прибув:</strong></p></h5>
+    <table class="table table-hover table table-striped " border="2" width="100%" cellspacing="1" style="width: 850px;">
+
+       <tr>
+         <th align="center" >Тип документа </th>
+         <th align="center" >Серія </th>
+         <th align="center" >Номер документа </th>
+         <th align="center" >Дата видачі </th>
+         <th align="center" >Суб’єкт, що видав </th>
+         <th align="center" >Звідки прибув </th>
+       </tr>
+       <tr>
+           <style>
+           td {
+        text-align: center; /* Выравниваем текст по центру ячейки */
+       }
+           </style>
+        <td>{{ album.type_doc }} </td>
+        <td>{{ album.seria_doc }} </td>
+        <td>{{ album.number_doc }} </td>
+        <td>{{ album.date_doc }} </td>
+        <td>{{ album.subject_doc }} </td>
+        <td>{{ album.whence_came }} </td>
+
+      </tr>
+      </table>
+      <p>
+      <p>
+    <p class="text-info"><b>Додані документи:</b></p>
+        <td><iframe src="{{ album.document.url }}"width="850" height="320"></iframe></td>
+      <p>
+      <p>
+<!-- Delete Person -->
+                            <form action="{% url 'reestr:album-delete' album.id %}" method="post" style="display: inline;">
+                                {% csrf_token %}
+                                <input type="submit" value="Видалити" class="btn btn-danger"  name="album_id" value="{{ album.id }}">
+                            </form>
+<!-- Update Person -->
+                            <form action="{% url 'reestr:album-update' album.id %}" method="post" style="display: inline;">
+                                {% csrf_token %}
+                                <input type="submit" value="Редагувати" class="btn btn-warning"  name="album_id" value="{{ album.id }}">
+                            </form>
+     <style>
+     p {
+    text-indent: 20px; /* Отступ первой строки в пикселах */
+     }
+     </style>
+     <input type="button" value="Повернутися" class="btn btn-primary" onclick="history.back()">
+    <a href="#" onclick="showFun()"><strong>Картка реєстрації особи</strong><span class="glyphicon glyphicon-file" </span>
+    <span class="glyphicon glyphicon-menu-down"</span></a>
+    <ul>
+    </ul>
+
+
+ <br>
+     <br>
+<script type="text/javascript">
+var visible = true;
+function showFun() {
+    if(visible) {
+        document.getElementById('myShowBlock' ).style.display = 'block';
+        visible = false;
+    } else {
+        document.getElementById('myShowBlock' ).style.display = 'none';
+        visible = true;
+    }
+}
+</script>
+      <style>
+   .kartka {
+    margin-right: 52%; /* Отступ справа */
+    margin-left: 2%; /* Отступ слева */
+    margin-bottom: 2%; /* Отступ слева */
+    background: #fcfcfc; /* Цвет фона */
+   }
+  </style>
+
+<div class="kartka" id="myShowBlock" style="display:none;><p class="lead"><strong>Картка реєстрації особи</strong></p>
+       <br>1. Прізвище: <b>{{ album.first_name }}</b>
+       <br>2. Ім’я: <b>{{ album.middle_name }}</b>
+       <br>3. По батькові: <b>{{ album.last_name }}</b>
+       <br>
+       <br>4. Попереднє прізвище, ім’я, по батькові (за наявності):__________
+       <br>5. Дата народження: <b>{{ album.date_of_birht }}</b>
+       <br>6. Громадянство, підданство (за наявності):__________
+       <br>
+       <br>
+    <table width="550" border="1">
+   <tr>
+      <td>7. Місце народження:</td>
+      <td colspan="3"><b>{{ album.place_of_birth }}</b></td>
+   </tr>
+   <tr>
+      <td>8. Коли і звідки прибув:</td>
+      <td><b>{{ album.whence_came }}</b></td>
+      <td colspan="2">9.Переїхав у межах адміністративно-територіальної одиниці з вул.:
+          ____________________
+          ____________________</td>
+   </tr>
+       <tr>
+       <td>10. Паспортний документ (тип):</td>
+       <td>Серія</td>
+       <td>Номер</td>
+       <td>Ким і коли виданий:</td>
+   </tr>
+       </tr>
+       <tr>
+       <td><b>{{ album.type_doc }}</b></td>
+       <td><b>{{ album.seria_doc }}</b></td>
+       <td><b>{{ album.number_doc }}</b></td>
+       <td><b>{{ album.subject_doc }} {{ album.date_doc }}</b></td>
+   </tr>
+</table>
+<br>
+<br>
+    11. Місце проживання зареєстровано за адресою:
+    <br> <b>{{ album.address }} {{ album.street }} {{ album.house }}</b>
+    <br>
+
+
+<br>12. Відомості про реєстрацію місця проживання дітей віком до 14-ти років,
+<br>місце проживання яких зареєстроване разом з батьками (прізвище, ім’я,
+<br>по батькові, дата та місце народження, дата реєстрації):
+<br>________________________________________________________________________
+<br>________________________________________________________________________
+<br>________________________________________________________________________
+<br>
+<table width="580" height="400" border="1">
+   <tr>
+      <td valign="top">13. Штамп реєстрації місця проживання</td>
+   </tr>
+<br>
+   <tr>
+      <td valign="top">14. Штамп зняття з реєстрації місця проживання</td>
+   </tr>
+</table>
+</div>
+
+{% endblock %}

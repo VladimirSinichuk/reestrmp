@@ -1,0 +1,21 @@
+body{
+    background: white url("images/background.png");
+}
+
+.navbar{
+    border-radius: 0;
+}
+
+.table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 0px;
+}
+
+select {
+    width: 30%;
+    padding: 16px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+}
